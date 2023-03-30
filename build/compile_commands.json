@@ -1,0 +1,32 @@
+[
+{
+  "directory": "D:/study files/coding/Ecmp/build",
+  "command": "D:/TDM-GCC-64/bin/gcc.exe  @CMakeFiles/Ecmp.dir/includes_C.rsp -g -o CMakeFiles/Ecmp.dir/src/accoumt.c.obj -c \"D:/study files/coding/Ecmp/src/accoumt.c\"",
+  "file": "D:/study files/coding/Ecmp/src/accoumt.c",
+  "output": "CMakeFiles/Ecmp.dir/src/accoumt.c.obj"
+},
+{
+  "directory": "D:/study files/coding/Ecmp/build",
+  "command": "D:/TDM-GCC-64/bin/gcc.exe  @CMakeFiles/Ecmp.dir/includes_C.rsp -g -o CMakeFiles/Ecmp.dir/src/app.c.obj -c \"D:/study files/coding/Ecmp/src/app.c\"",
+  "file": "D:/study files/coding/Ecmp/src/app.c",
+  "output": "CMakeFiles/Ecmp.dir/src/app.c.obj"
+},
+{
+  "directory": "D:/study files/coding/Ecmp/build",
+  "command": "D:/TDM-GCC-64/bin/gcc.exe  @CMakeFiles/Ecmp.dir/includes_C.rsp -g -o CMakeFiles/Ecmp.dir/src/linkedList.c.obj -c \"D:/study files/coding/Ecmp/src/linkedList.c\"",
+  "file": "D:/study files/coding/Ecmp/src/linkedList.c",
+  "output": "CMakeFiles/Ecmp.dir/src/linkedList.c.obj"
+},
+{
+  "directory": "D:/study files/coding/Ecmp/build",
+  "command": "D:/TDM-GCC-64/bin/gcc.exe  @CMakeFiles/Ecmp.dir/includes_C.rsp -g -o CMakeFiles/Ecmp.dir/src/m_accoumt.c.obj -c \"D:/study files/coding/Ecmp/src/m_accoumt.c\"",
+  "file": "D:/study files/coding/Ecmp/src/m_accoumt.c",
+  "output": "CMakeFiles/Ecmp.dir/src/m_accoumt.c.obj"
+},
+{
+  "directory": "D:/study files/coding/Ecmp/build",
+  "command": "D:/TDM-GCC-64/bin/gcc.exe  @CMakeFiles/Ecmp.dir/includes_C.rsp -g -o CMakeFiles/Ecmp.dir/src/main.c.obj -c \"D:/study files/coding/Ecmp/src/main.c\"",
+  "file": "D:/study files/coding/Ecmp/src/main.c",
+  "output": "CMakeFiles/Ecmp.dir/src/main.c.obj"
+}
+]

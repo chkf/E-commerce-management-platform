@@ -64,6 +64,22 @@ Status InsertGList(G_LNode *p, G_LNode *q)
     return SUCCESS;
 }
 
+Status DeleteGList(G_LinkedList *g_list, G_LNode *p)
+{
+    G_LNode *q;
+    q = (*g_list);
+    while(q->next!=NULL)
+    {
+        if(q->next==p)
+        {
+            q->next=p->next;
+            free(p);
+            return SUCCESS;
+        }
+        q=q->next;
+    }
+    return ERROR;
+}
 //≥ı ºªØ¡¥±Ìb_list
 Status InitBList(B_LinkedList *L)
 {

@@ -96,7 +96,6 @@ void read_goods(void)
     fclose(fp);
 }
 
-
 //输入信息，将商品信息加入链表和文件中
 void add_goods_info(void)
 {
@@ -127,14 +126,14 @@ void add_goods_info(void)
 }
 
 //根据商品名查找商品
-G_LNode *find_goods(char *name)
+G_LNode *find_goods_node(char *name)
 {
     G_LNode *p = g_list->next;
     while (p != NULL)
     {
         if (strcmp(p->good->name,name) == 0)
         {
-            printf("name:%s\nprice:%d\nnumber:%d\nowner:%s\n\n", p->good->name, p->good->price, p->good->number, p->good->owner);
+            //printf("name:%s\nprice:%d\nnumber:%d\nowner:%s\n\n", p->good->name, p->good->price, p->good->number, p->good->owner);
             return p;
         }
         p = p->next;
@@ -143,22 +142,78 @@ G_LNode *find_goods(char *name)
     return NULL;
 }
 
-//根据商品名修改商品价格
-void modify_goods(char *name)
+//根据商品名和卖家名修改商品的价格
+void change_goods_price(char *name, char *owner, int price)
 {
-    G_LNode *p = find_goods(name);
+    G_LNode *p = find_goods_node(name);
     if (p == NULL)
     {
+        printf("no such goods\n");
         return;
     }
-    printf("new price>");
-    scanf("%d", &p->good->price);
+    if (strcmp(p->good->owner, owner) != 0)
+    {
+        printf("you are not the owner of this goods\n");
+        return;
+    }
+    p->good->price += price;
+    update_goods_info();
+}
+
+
+
+//根据商品名和卖家名，和传入的库存变化量，更改商品库存
+void change_goods_number(char *name, char *owner, int number)
+{
+    G_LNode *p = find_goods_node(name);
+    if (p == NULL)
+    {
+        printf("no such goods\n");
+        return;
+    }
+    if (strcmp(p->good->owner, owner) != 0)
+    {
+        printf("you are not the owner of this goods\n");
+        return;
+    }
+    p->good->number += number;
+    update_goods_info();
+}
+
+//根据卖家名，打印在售商品信息
+void print_goods(char *owner)
+{
+    int flag = 0;
+    G_LNode *p = g_list->next;
+    if (p == NULL)
+    {
+        printf("none\n");
+        return;
+    }
+    while (p != NULL)
+    {
+        if (strcmp(p->good->owner, owner) == 0)
+        {
+            flag = 1;
+            printf("name:%s\nprice:%d\nnumber:%d\nowner:%s\n\n", p->good->name, p->good->price, p->good->number, p->good->owner);
+        }
+        p = p->next;
+    }
+    if (flag == 0)
+    {
+        printf("none\n");
+    }
 }
 
 //输入账号，根据链表b_list，找出卖家为该账号的所有订单，打印出来
 void print_bill(char *account)
 {
     B_LNode *p = b_list->next;
+    if(p==NULL)
+    {
+        printf("none\n");
+        return;
+    }
     while (p != NULL)
     {
         if (strcmp(p->bill->seller, account) == 0)
@@ -173,6 +228,11 @@ void print_bill(char *account)
 void print_bill_buyer(char *account)
 {
     B_LNode *p = b_list->next;
+    if(p==NULL)
+    {
+        printf("none\n");
+        return;
+    }
     while (p != NULL)
     {
         if (strcmp(p->bill->buyer, account) == 0)
@@ -208,8 +268,6 @@ int count(void)
     return count;
 }
 
-//根据传入商品数，更新文件
-
 //把购买订单信息录入链表b_list中
 void add_bill(char *name, char *address, char *buyer, char *seller, int number)
 {
@@ -234,7 +292,7 @@ void add_bill(char *name, char *address, char *buyer, char *seller, int number)
 void buy_goods(char *name, char *address,char*account)
 {
     int number,ordernumber;
-    G_LNode *p = find_goods(name);
+    G_LNode *p = find_goods_node(name);
     if (p == NULL)
     {
         printf("no enough goods\n");
@@ -259,7 +317,6 @@ void buy_goods(char *name, char *address,char*account)
         printf("count error\n");
         return;
     }
-    p->good->number-=number;
     FILE *fp;
     fp = fopen("data\\bills.txt", "a+");
     if (fp == NULL)
@@ -269,9 +326,12 @@ void buy_goods(char *name, char *address,char*account)
     }
     printf("success!\n");
     fprintf(fp, "ordernumber:%d\nname:%s\nbuyer:%s\naddress:%s\nseller:%s\nnumber:%d\n\n", ordernumber,p->good->name, account,address,p->good->owner,number);
+    change_goods_number(p->good->name,p->good->owner,-number);
+    update_goods_info();
     add_bill(p->good->name,address,account,p->good->owner,number);
     fclose(fp);
 }
+
 
 Status search_goods(char* account)
 {
@@ -319,76 +379,28 @@ Status search_goods(char* account)
     return ERROR;
 }
 
-//根据卖家名查看订单
-void check_order(char *owner)
+
+
+//删除指定商品
+void delete_goods(char* account)
 {
-    FILE *fp;
-    fp = fopen("data\\bills.txt", "r");
-    if (fp == NULL)
+    char name[20];
+    printf("input goods name>");
+    scanf("%s",name);
+    G_LNode *p = find_goods_node(name);
+    if (p == NULL)
     {
-        printf("open file error\n");
+        printf("no such goods\n");
         return;
     }
-    char address[20];
-    char name[20];
-    int price;
-    int number;
-    char ownered[20];
-    while (fscanf(fp, "address:%s\nname:%s\nprice:%d\nnumber:%d\nowner:%s\n\n", address, name, &price, &number,ownered) != EOF)
+    if(strcmp(p->good->owner,account))
     {
-        if(strcmp(owner,ownered))printf("address:%s\nname:%s\nprice:%d\nnumber:%d\n\n", address, name, price, number);
+        printf("you can only delete your goods\n");
+        return;
     }
-    fclose(fp);
-}
-
-//根据卖家名查看商品
-void check_goods(char *name)
-{
-    G_LNode *p = g_list->next;
-    while (p != NULL)
-    {
-        if (strcmp(p->good->owner, name) == 0)
-        {
-            printf("name:%s\nprice:%d\nnumber:%d\nowner:%s\n\n", p->good->name, p->good->price, p->good->number, p->good->owner);
-        }
-        p = p->next;
-    }
-}
-
-//根据商品名查看商品结点
-G_LNode *find_goods_node(char *name)
-{
-    G_LNode *p = g_list->next;
-    while (p != NULL)
-    {
-        if (strcmp(p->good->name, name) == 0)
-        {
-            return p;
-        }
-        p = p->next;
-    }
-    return NULL;
-}
-
-//删除货量为0的商品
-void delete_zero_goods(void)
-{
-    G_LNode *p = g_list->next;
-    G_LNode *q = g_list;
-    while (p != NULL)
-    {
-        if (p->good->number == 0)
-        {
-            q->next = p->next;
-            free(p);
-            p = q->next;
-        }
-        else
-        {
-            q = p;
-            p = p->next;
-        }
-    }
+    DeleteGList(&g_list, p);
+    update_goods_info();
+    printf("delete success\n");
 }
 
 //根据链表信息更新文件信息
@@ -437,4 +449,137 @@ void submit_goods(char* account)
     strcpy(p->good->owner,owner);
     InsertGList(g_list, p);
     update_goods_info();
+}
+
+
+//函数传入账号和商品名,卖家与账号相同时，把商品信息存入文件apply.txt
+void apply_recommendation(char* account)
+{
+    char name[20];
+    printf("input goods name>");
+    scanf("%s", name);
+    G_LNode *p = g_list->next;
+    while (p != NULL)
+    {
+        if (strcmp(p->good->name, name) == 0)
+        {
+            if(strcmp(p->good->owner,account))
+            {
+                printf("you can only apply your own goods\n" );
+                return;
+            }
+            FILE *fp;
+            fp = fopen("data\\apply.txt", "a");
+            if (fp == NULL)
+            {
+                printf("open file error\n");
+                return;
+            }
+            fprintf(fp, "name:%s\nprice:%d\nnumber:%d\nowner:%s\n\n", p->good->name, p->good->price, p->good->number, p->good->owner);
+            fclose(fp);
+            printf("apply success,wait for the manager to pass it\n");
+            return;
+        }
+        p = p->next;
+    }
+    printf("no such goods\n");
+}
+
+//把apply.txt中的商品信息逐个打印，按一次打印一个，供用户选择是否购买
+void recommended_goods(char* account)
+{
+    FILE *fp;
+    int command;
+    fp = fopen("data\\apply.txt", "r");
+    if (fp == NULL)
+    {
+        printf("open file error\n");
+        return;
+    }
+    char address[50];
+    char name[20];
+    int price;
+    int number;
+    char owner[20];
+    while (fscanf(fp, "name:%s\nprice:%d\nnumber:%d\nowner:%s\n\n", name, &price, &number, owner) != EOF)
+    {
+        printf("***recommendation goods:***\n");
+        printf("name:%s\nprice:%d\nnumber:%d\nowner:%s\n\n", name, price, number, owner);
+        printf("press enter to continue\n");
+        printf("press B to buy it\n");
+        scanf("%c", &command);
+        if (command == 'B'||command == 'b')
+        {
+            printf("buy it? 1:yes/0:no>");
+            while(1)
+            {
+                my_scanf(&command,"command error>");
+                if(command==1)
+                {
+                    if(!strcmp(owner,account))
+                    {
+                        printf("can't buy your own goods\n" );
+                        break;
+                    }
+                    printf("input address>");
+                    scanf("%s",address);
+                    buy_goods(name,address,account);
+                    break;
+                }
+                else if(command==0)
+                {
+                    break;
+                }
+                else
+                {
+                    printf("command error>");
+                }
+            }
+        }
+    }
+    fclose(fp);
+    
+}
+
+
+//goods information update
+void goods_info_change(char* account)
+{
+    FILE *fp;
+    int command;
+    fp = fopen("data\\goodslist.txt", "r");
+    if (fp == NULL)
+    {
+        printf("open file error\n");
+        return;
+    }
+    printf("1.goods number update\n");
+    printf("2.goods price update\n");
+    my_scanf(&command,"command error>");
+    if(command==1)
+    {
+        char name[20];
+        int number;
+        printf("input goods name>");
+        scanf("%s", name);
+        printf("input goods number(how many it change)>");
+        my_scanf(&number,"number error>");
+        change_goods_number(name, account,number);
+        printf("number update success\n");
+    }
+    else if(command==2)
+    {
+        char name[20];
+        int price;
+        printf("input goods name>");
+        scanf("%s", name);
+        printf("input goods price(how much it change)>");
+        my_scanf(&price,"price error>");
+        change_goods_price(name, account,price);
+        printf("price update success\n");
+    }
+    else
+    {
+        printf("command error\n");
+    }
 }

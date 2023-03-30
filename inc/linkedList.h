@@ -59,6 +59,6 @@ Status InitGList(G_LinkedList *L);
 Status InsertGList(G_LNode *p, G_LNode *q);
 Status InitBList(B_LinkedList *L);
 Status InsertBList(B_LNode *p, B_LNode *q);
-
+Status DeleteGList(G_LinkedList *g_list, G_LNode *p);
 
 #endif

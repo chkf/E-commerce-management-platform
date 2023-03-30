@@ -25,6 +25,8 @@ int main()
     {
         if(status==0)
         {
+            printf("press any key to continue\n");
+            getch();
             home();
             printf("command>");
             my_scanf(&command,"command error>");
@@ -87,9 +89,30 @@ int main()
                     submit_goods(account);
                     break;
                 case 4:
-                    status = 0;
+                    print_bill_buyer(account);
                     break;
                 case 5:
+                    delete_goods(account);
+                    break;
+                case 6:
+                    print_bill(account);
+                    break;
+                case 7:
+                    print_goods(account);
+                    break;
+                case 8:
+                    apply_recommendation(account);
+                    break;
+                case 9:
+                    recommended_goods(account);
+                    break;
+                case 10:
+                    goods_info_change(account);
+                    break;
+                case 11:
+                    status = 0;
+                    break;
+                case 12:
                     return 0;
                     break;
                 default:
@@ -107,7 +130,7 @@ int main()
     return 0;
 }
 
-/*防止错误输入，但不能检测输入数字在链表中位置是否合法*/
+/*防止错误输入，但不能检测输入数字在调用处是否合法*/
 void my_scanf(int * i,char * error_warn)                    //error_warn是错误提示
 {
     bool res=0;
@@ -129,8 +152,15 @@ void user_home(void)
     printf("    1.search goods\n");
     printf("    2.change password\n");
     printf("    3.submit products\n");
-    printf("    4.log out\n");
-    printf("    5.exit\n");
+    printf("    4.Bought list\n");
+    printf("    5.quit for selling\n");
+    printf("    6.Sold list\n");
+    printf("    7.selling goods\n");
+    printf("    8.apply for recommendation for your goods\n");
+    printf("    9.recommended goods\n");
+    printf("    10.goods info update\n");
+    printf("    11.log out\n");
+    printf("    12.exit\n");
 }
 
 void m_user_home()

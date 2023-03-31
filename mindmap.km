@@ -1,0 +1,154 @@
+{
+    "root": {
+        "data": {
+            "id": "crk7nt8pyl40",
+            "created": 1680229536921,
+            "text": "MainTopic",
+            "priority": null
+        },
+        "children": [
+            {
+                "data": {
+                    "id": "crk9r3isgko0",
+                    "created": 1680235436610,
+                    "text": "主界面",
+                    "expandState": "expand"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "crk9rmzpjqw0",
+                            "created": 1680235478992,
+                            "text": "管理员登录/注册/找回密码",
+                            "expandState": "expand"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "crk9rzgvbgg0",
+                                    "created": 1680235506151,
+                                    "text": "敬请期待"
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "crk9sn4b5io0",
+                            "created": 1680235557634,
+                            "text": "用户登录/注册/找回密码",
+                            "expandState": "expand"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "crk9sy1cm7s0",
+                                    "created": 1680235581400,
+                                    "text": "应用界面"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "crk9tnh90xc0",
+                                            "created": 1680235636781,
+                                            "text": "商品搜索/购买"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "crk9vmqp8ww0",
+                                                    "created": 1680235791904,
+                                                    "text": "小视频式推荐列表"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "crk9w86763c0",
+                                                    "created": 1680235838553,
+                                                    "text": "按商品名搜索"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "crk9wgj7vlk0",
+                                                    "created": 1680235856755,
+                                                    "text": "按卖家搜索"
+                                                },
+                                                "children": [
+                                                    {
+                                                        "data": {
+                                                            "id": "crk9wnn29kw0",
+                                                            "created": 1680235872225,
+                                                            "text": "敬请期待"
+                                                        },
+                                                        "children": []
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "crk9v1hnhrs0",
+                                            "created": 1680235745644,
+                                            "text": "商品出售信息增删查改"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "crk9x3taviw0",
+                                                    "created": 1680235907430,
+                                                    "text": "改价/改库存"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "crk9xa6fnog0",
+                                                    "created": 1680235921285,
+                                                    "text": "发布/撤回商品",
+                                                    "expandState": "collapse"
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "crk9xi4uwj40",
+                                                    "created": 1680235938604,
+                                                    "text": "向管理员请求将商品加入推荐列表"
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "crk9vea7swg0",
+                                            "created": 1680235773493,
+                                            "text": "修改密码"
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "crk9vh77op40",
+                                            "created": 1680235779842,
+                                            "text": "退出"
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "template": "right",
+    "theme": "fresh-blue",
+    "version": "1.4.43"
+}

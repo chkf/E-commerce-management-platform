@@ -3,7 +3,7 @@
 
 LinkedList list;
 LinkedList m_list;
-G_LinkedList g_list;
+G_LinkedList g_list,r_list;
 B_LinkedList b_list;
 
 int main()
@@ -15,11 +15,13 @@ int main()
     InitList(&list);
     InitList(&m_list);
     InitGList(&g_list);
+    InitGList(&r_list);
     InitBList(&b_list);
     readfile();                     //从文件读取账号密码，存入链表
     m_readfile();
     read_goods();
     read_bills();
+    read_recommendation();
     home();
     while(1)
     {

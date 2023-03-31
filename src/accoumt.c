@@ -14,7 +14,7 @@ void readfile(void)
     USER* user;
     LNode* q;
     FILE *fp;
-    fp = fopen("data\\account.txt","r");
+    fp = fopen("..\\data\\account.txt","r");
     char *a,*p,*c;
     a=(char*)malloc(20*sizeof(char));
     p=(char*)malloc(20*sizeof(char));                               //分配空间
@@ -41,7 +41,7 @@ void readfile(void)
 void savetofile(char* a,char* p,char* c)
 {
     FILE *fp;
-    fp = fopen("data\\account.txt","a");
+    fp = fopen("..\\data\\account.txt","a");
     fprintf(fp,"account:%s\npassword:%s\nname:%s\n\n",a,p,c);       //写入文件
     fclose(fp);
 }
@@ -162,7 +162,7 @@ Status deleteFile(char* account)
 {
     FILE *fp;
     FILE *fp1;
-    fp = fopen("data\\account.txt","r");
+    fp = fopen("..\\data\\account.txt","r");
     fp1 = fopen("data\\account1.txt","w");
     char *a,*p,*c;
     a=(char*)malloc(20*sizeof(char));
@@ -177,8 +177,8 @@ Status deleteFile(char* account)
     }
     fclose(fp);
     fclose(fp1);
-    remove("data\\account.txt");
-    rename("data\\account1.txt","data\\account.txt");
+    remove("..\\data\\account.txt");
+    rename("data\\account1.txt","..\\data\\account.txt");
     return SUCCESS;
 }
 
@@ -281,7 +281,7 @@ void find_password(void)
 char* printpassword(char* account,char* name)
 {
     FILE *fp;
-    fp = fopen("data\\account.txt","r");
+    fp = fopen("..\\data\\account.txt","r");
     char *a,*p,*c;
     a=(char*)malloc(20*sizeof(char));
     p=(char*)malloc(20*sizeof(char));                               //分配空间

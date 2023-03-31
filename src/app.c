@@ -576,6 +576,7 @@ void recommended_goods(char* account)
         printf("name:%s\nprice:%d\nnumber:%d\nowner:%s\n\n", name, price, number, owner);
         printf("press enter to continue\n");
         printf("press B to buy it\n");
+        printf("press e to exit\n");
         scanf("%c", &key);
         if (key == 'B'||key == 'b')
         {
@@ -606,6 +607,13 @@ void recommended_goods(char* account)
                     printf("command error>");
                 }
             }
+        }
+        else if(key == 'e'||key == 'E')
+        {
+            return;
+        }
+        {
+            return;
         }
     }
     printf("no more goods\n");
